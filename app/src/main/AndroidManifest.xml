@@ -18,6 +18,7 @@
 
         <activity android:name=".TestActivity" />
         <activity android:name=".product.ProductActivity" />
+        <activity android:name=".rx.RxjavaTest" />
     </application>
 
 </manifest>

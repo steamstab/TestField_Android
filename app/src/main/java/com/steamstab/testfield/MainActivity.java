@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.steamstab.testfield.product.ProductActivity;
+import com.steamstab.testfield.rx.RxjavaTest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,5 +22,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Intent intent = new Intent(MainActivity.this, RxjavaTest.class);
+        startActivity(intent);
+
     }
 }
