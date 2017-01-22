@@ -19,5 +19,7 @@ public interface IProductContract {
     interface IPresenter extends IBasePresenter<IView> {
 
         void getProduct(String key);
+
+
     }
 }

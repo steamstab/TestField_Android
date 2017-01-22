@@ -3,6 +3,7 @@ package com.steamstab.testfield.rx;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.steamstab.testfield.R;
@@ -27,6 +28,7 @@ public class RxjavaTest extends Activity {
 
     List<String> list1 = new ArrayList<>();
     List<String> list2 = new ArrayList<>();
+    EditText text;
 
     TextView mTextView;
     int num = 0;
@@ -35,7 +37,9 @@ public class RxjavaTest extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_rxjava);
-        mTextView = (TextView) findViewById(R.id.button);
+//        mTextView = (TextView) findViewById(R.id.button);
+//        text = (EditText) findViewById(R.id.edit);
+
 
         list1.add("1");
         list1.add("2");
@@ -52,14 +56,48 @@ public class RxjavaTest extends Activity {
 //        range();
 //        interval();
 
-        final PublishSubject subject = PublishSubject.create();
-        debounce(subject);
-        mTextView.setOnClickListener(new View.OnClickListener() {
+//        final PublishSubject subject = PublishSubject.create();
+//        debounce(subject);
+//        mTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                subject.onNext(++num);
+//            }
+//        });
+
+        Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
-            public void onClick(View view) {
-                subject.onNext(++num);
+            public void call(Subscriber<? super Integer> subscriber) {
+                for (int i = 0; i < 5; i++) {
+                    subscriber.onNext(i);
+                }
+            }
+        }).map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+//                if(integer == 3){
+//                    mTextView.setText("");
+//                }
+                return integer;
+            }
+        }).subscribe(new Observer<Integer>() {
+            @Override
+            public void onCompleted() {
+                System.out.println("Observable completed");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                System.out.println("Oh,no! Something wrong happened！");
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                System.out.println("Item is " + integer);
             }
         });
+
+
     }
 
     void creat() {
